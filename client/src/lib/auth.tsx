@@ -94,9 +94,9 @@ export function useAuth() {
 }
 
 // Get auth header with token
-export function getAuthHeader() {
+export function getAuthHeader(): Record<string, string> {
   const token = localStorage.getItem('auth_token');
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return token ? { Authorization: `Bearer ${token}` } : {} as Record<string, string>;
 }
 
 // Request interceptor to add auth header

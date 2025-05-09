@@ -26,7 +26,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   setupWebSocketServer(httpServer);
 
   // Auth routes
-  app.post('/api/auth/login', login);
+  app.post('/api/login', login);
 
   // User routes
   app.get('/api/users', authenticate, authorize(['admin']), async (req, res) => {
