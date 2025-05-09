@@ -45,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (username: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await apiRequest('POST', '/api/auth/login', { username, password });
+      const response = await apiRequest('POST', '/api/login', { username, password });
       const data = await response.json();
       
       setToken(data.token);
@@ -105,14 +105,15 @@ export async function authApiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const headers = getAuthHeader();
+  const headers: Record<string, string> = getAuthHeader();
+  
+  if (data) {
+    headers['Content-Type'] = 'application/json';
+  }
   
   const res = await fetch(url, {
     method,
-    headers: {
-      ...headers,
-      ...(data ? { 'Content-Type': 'application/json' } : {}),
-    },
+    headers,
     body: data ? JSON.stringify(data) : undefined,
     credentials: 'include',
   });

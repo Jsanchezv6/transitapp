@@ -81,9 +81,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: 'Username already exists' });
       }
       
-      // Hash password
-      userData.password = await hashPassword(userData.password);
-      
+      // No necesitamos hashear la contraseña aquí, se hará en storage.createUser
       const newUser = await storage.createUser(userData);
       
       // Log activity

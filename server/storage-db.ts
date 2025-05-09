@@ -41,11 +41,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateUser(id: number, userData: Partial<User>): Promise<User | undefined> {
-    // Handle password hashing if it's being updated
-    if (userData.password) {
-      userData.password = await hashPassword(userData.password);
-    }
-    
+    // La contraseña ya viene hasheada desde routes.ts, así que no la hasheamos aquí
     const [updatedUser] = await db
       .update(users)
       .set(userData)
